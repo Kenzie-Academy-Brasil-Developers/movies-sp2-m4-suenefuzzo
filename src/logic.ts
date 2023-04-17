@@ -29,7 +29,10 @@ const createMovie = async (
 
 const getMovies = async (resquest: Request, response: Response): Promise<Response> => {
     const queryString: string = `
-        SELECT * FROM movies;
+        SELECT 
+            * 
+        FROM 
+            movies;
     `
 
     const queryResult: QueryResult<IMovie> = await client.query(queryString)
@@ -37,9 +40,27 @@ const getMovies = async (resquest: Request, response: Response): Promise<Respons
     return response.status(200).json(queryResult.rows)
 };
 
-// const getMovie = async (resquest: Request, response: Response): Promise<Response> => {
+const getMovie = async (resquest: Request, response: Response): Promise<Response> => {
+    const id: number = Number(resquest.params.id)
 
-// };
+    const queryString: string = `
+        SELECT 
+            * 
+        FROM 
+            movies 
+        WHERE 
+            id = $1;
+    `
+
+    const queryConfig: QueryConfig = {
+        text: queryString,
+        values: [id]
+    }
+
+    const queryResult: QueryResult<IMovie> = await client.query(queryConfig)
+
+    return response.status(200).json(queryResult.rows[0])
+};
 
 // const updateMovie = async (resquest: Request, response: Response): Promise<Response> => {
 
@@ -49,4 +70,4 @@ const getMovies = async (resquest: Request, response: Response): Promise<Respons
 
 // };
 
-export { createMovie, getMovies };
+export { createMovie, getMovies, getMovie };

@@ -1,6 +1,6 @@
 import express, { Application, Request, Response} from 'express';
 import { startDatabase } from './database';
-import { createMovie, getMovies } from './logic';
+import { createMovie, getMovie, getMovies } from './logic';
 
 const app: Application = express();
 app.use(express.json());
@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.post('/movies', createMovie);
 app.get('/movies', getMovies);
-app.get('/movies/:id', );
+app.get('/movies/:id', getMovie);
 app.patch('/movies/:id', );
 app.delete('/movies/:id', );
 
