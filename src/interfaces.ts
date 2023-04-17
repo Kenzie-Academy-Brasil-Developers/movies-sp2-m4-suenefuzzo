@@ -6,6 +6,6 @@ interface IMovie {
     price: number
 }
 
-type IMovieRequest = Omit<IMovie, 'id'>
+type TMovieRequest = Omit<IMovie, 'id'>
 
-export {IMovie, IMovieRequest}
+export {IMovie, TMovieRequest}
